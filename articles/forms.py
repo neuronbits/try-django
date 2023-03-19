@@ -11,7 +11,7 @@ class ArticleForm(forms.ModelForm):
        data = self.cleaned_data
        title = data.get('title')
        qs = Article.objects.filter(title__icontains=title)
-       if qs.exists:
+       if qs.exists():
            self.add_error('title',f'"{title}" already exists')
        return data
 
