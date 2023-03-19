@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-# CTRL + SHIFT P and then "Developer: reload window" if app does not visible here in import.
+# CTRL + SHIFT P and then "Developer: reload window" if app does not visible here in import
 
 from django.contrib import admin
 from django.urls import path
