@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.signals import pre_save, post_save
 from django.utils import timezone
 from django.utils.text import slugify
 
@@ -15,8 +16,23 @@ class Article(models.Model):
     def save(self, *args, **kwargs): # override save method. Here declared save method
         # obj = Article.objects.get (id=1)
         # set something
-        if self.slug is None: # do only first time so if we change slug from admin then this is not called again
-            self.slug = slugify(self.title)
-        super.save(self, *args, **kwargs) # called original save method
+        #if self.slug is None: # do only first time so if we change slug from admin then this is not called again
+        #    self.slug = slugify(self.title)
+        super().save(*args, **kwargs) # called original save method
         # obj. save ()
         # do another something
+
+
+# this signal is alrternative to what we did above in save method
+def article_pre_save(sender, instance, *args, **kwargs):
+    if instance.slug is None:
+        instance.slug = slugify(instance.title)
+
+pre_save.connect(article_pre_save, sender=Article)
+
+def article_post_save(sender, instance, created, *args, **kwargs):
+    if created:
+        instance.slug = slugify(instance.title)
+        instance.save() # calling save because this is after save i.e post_save so we have to manually call
+
+post_save.connect(article_post_save, sender=Article)

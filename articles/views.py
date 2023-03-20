@@ -73,4 +73,4 @@ def article_details_view(request, id=None):
     context = {
         'object': article_obj
     }
-    return render(request, 'articles/detail.html', context=context)
+    return render(request, 'articles/detail.html', context)

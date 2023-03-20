@@ -5,7 +5,6 @@ from articles.models import Article
 
 
 def home_view(request, *args, **kwargs):
-    name = 'Mr John'
     number = random.randint(1,2)
     article_object = Article.objects.get(id=number)
     article_list = Article.objects.all()
@@ -18,7 +17,7 @@ def home_view(request, *args, **kwargs):
         'content': article_object.content,
     }
     tmpl = get_template('home-view.html')
-    tmpl_string = tmpl.render(context=context)
+    tmpl_string = tmpl.render(context)
     # tmpl_string2 = tmpl.render(context=context2)
     # tmpl_string3 = tmpl.render(context=context3)
 
