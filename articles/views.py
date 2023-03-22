@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .forms import ArticleForm
 from .models import Article
@@ -38,6 +38,9 @@ def article_create_view(request):
     if form.is_valid():
         article_object = form.save()
         context['form'] = ArticleForm()
+        return redirect(article_object.get_absolute_url()) # or below. but this is recommended. Django use this way
+        #return redirect('article-detail', slug=article_object.slug)
+    
         # title = form.cleaned_data.get('title')
         # content = form.cleaned_data.get('content')
         # # print(title, content)
