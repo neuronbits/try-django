@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import render, redirect
 
@@ -8,24 +9,20 @@ from .models import Article
 # Create your views here.
 
 def article_search_view(request):
-    print(dir(request.GET))
-    print(request.GET)
+    #print(dir(request.GET))
+    #print(request.GET)
 
     #query_dict = dict(request.GET)
-    query_dict = request.GET
     #query = query_dict.get('q')
-
-    try:
-        query = int(query_dict.get('q'))
-    except:
-        query = None
-
-    article_obj = None
+    query = request.GET.get('q') 
+    # qs = Article.objects.all()
     if query is not None:
-        article_obj = Article.objects.get(id=query)
+        lookups = Q(title__icontains=query) | Q(content__icontains=query)
+        qs = Article.objects.filter(lookups)
+        # qs = Article.objects.search(query)
 
     context = {
-        'object': article_obj
+        'object_list': qs
     }
     return render(request, 'articles/search.html', context=context)
 
