@@ -16,10 +16,11 @@ def article_search_view(request):
     #query = query_dict.get('q')
     query = request.GET.get('q') 
     # qs = Article.objects.all()
-    if query is not None:
-        lookups = Q(title__icontains=query) | Q(content__icontains=query)
-        qs = Article.objects.filter(lookups)
-        # qs = Article.objects.search(query)
+    #if query is not None:
+        # lookups = Q(title__icontains=query) | Q(content__icontains=query)
+        # qs = Article.objects.filter(lookups)
+    qs = Article.objects.search(query=query) # used Article Manager search from model, pass the query to model manager
+    # qs = Article.objects.filter(title__icontains='office').search(query=query) did queryset in models to further filter query like here
 
     context = {
         'object_list': qs
