@@ -2,4 +2,4 @@ Django==4.1.7
 gunicorn # production grade web server
 psycop92-binary # django easily connect to postgre database
 django-dotenv
-
+pint
