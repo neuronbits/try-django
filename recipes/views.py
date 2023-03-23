@@ -9,6 +9,7 @@ from .models import Recipe
 @login_required
 def recipe_list_view(request):
     qs = Recipe.objects.filter(user=request.user)
+    print(qs)
     context = {
         'object_list': qs
     }
