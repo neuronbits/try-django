@@ -17,7 +17,7 @@ Including another URLconf
 # CTRL + SHIFT P and then "Developer: reload window" if app does not visible here in import
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 from accounts.views import (
     login_view, 
@@ -34,9 +34,8 @@ from .views import home_view
 
 urlpatterns = [
     path('', home_view),
-    path('articles/', article_search_view),  
-    path('articles/create/', article_create_view, name='article-create'),  
-    path('articles/<slug:slug>/', article_details_view, name='article-detail'),
+    path('pantry/recipes/', include('recipes.urls')),
+    path('articles/', include('articles.urls')),
     path('admin/', admin.site.urls),
     path('login/', login_view),
     path('logout/', logout_view),
