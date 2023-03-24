@@ -11,9 +11,9 @@
         {% csrf_token %}
         {{ form.as_p }}
 
-        {% if form_2 %}
+        {% if formset %}
             <h3>Ingredients</h3>
-            {{ form_2.as_p }}
+            {{ formset.as_p }}
         {% endif %}
 
         <div style='margin-top: 10px;'><button type="submit">Save</button></div>
